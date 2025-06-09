@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    # Hot-reload: monta tu directorio de trabajo
+    volumes:
+      - .:/app
+      - /app/node_modules     # evita que se sobre-monte
+    ports:
+      - "8081:8081"     # Metro bundler
+      - "19000:19000"   # Expo (protocol)
+      - "19001:19001"   # Expo (websocket)
+      - "19002:19002"   # Expo DevTools
+      - "19006:19006"   # Expo Web (si usas --web)
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - REACT_NATIVE_PACKAGER_HOSTNAME=host.docker.internal
+      - CHOKIDAR_USEPOLLING=true
